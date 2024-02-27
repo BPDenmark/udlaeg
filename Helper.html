@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CICERO Udlæg - Hjælper</title>
+</head>
+<body>
+
+    <h1>CICERO Udlæg - Hjælper</h1>
+    <p>Udfyld dine oplysninger:</p>
+
+    <form id="helperForm">
+        <label for="fuldeNavn">Fulde Navn:</label>
+        <input type="text" id="fuldeNavn" name="fuldeNavn" required>
+
+        <label for="mail">Mail:</label>
+        <input type="email" id="mail" name="mail" required>
+
+        <label for="telefon">Telefonnummer:</label>
+        <input type="tel" id="telefon" name="telefon" required>
+
+        <label for="postnummer">CICERO Postnummer:</label>
+        <input type="text" id="postnummer" name="postnummer" required>
+
+        <button type="button" onclick="handleSubmit()">Næste</button>
+    </form>
+
+    <script>
+        function handleSubmit() {
+            var fuldeNavn = document.getElementById('fuldeNavn').value;
+            var mail = document.getElementById('mail').value;
+            var telefon = document.getElementById('telefon').value;
+            var postnummer = document.getElementById('postnummer').value;
+
+            // Håndter formularindsendelse her (f.eks. send data til serveren).
+
+            // Redirect til næste side (hvis nødvendigt).
+            window.location.href = 'næsteside.html';
+        }
+    </script>
+
+</body>
+</html>
 
