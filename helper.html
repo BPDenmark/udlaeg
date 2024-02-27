@@ -8,38 +8,74 @@
 <body>
 
     <h1>CICERO Udlæg - Hjælper</h1>
-    <p>Udfyld dine oplysninger:</p>
+    <p>Vælg din rolle:</p>
 
-    <form id="helperForm">
-        <label for="fuldeNavn">Fulde Navn:</label>
-        <input type="text" id="fuldeNavn" name="fuldeNavn" required>
+    <div>
+        <h2>CICERO Udlæg</h2>
+        <p>Vælg din rolle:</p>
+        <button onclick="selectRole('hjaelper')">Hjælper</button>
+        <button onclick="selectRole('team')">Teamet</button>
+    </div>
 
-        <label for="mail">Mail:</label>
-        <input type="email" id="mail" name="mail" required>
+    <div id="hjaelperForm" style="display: none;">
+        <h2>CICERO Udlæg - Hjælper</h2>
+        <p>Udfyld dine oplysninger:</p>
 
-        <label for="telefon">Telefonnummer:</label>
-        <input type="tel" id="telefon" name="telefon" required>
+        <form id="helperForm">
+            <label for="fuldeNavn">Fulde Navn:</label>
+            <input type="text" id="fuldeNavn" name="fuldeNavn" required>
 
-        <label for="postnummer">CICERO Postnummer:</label>
-        <input type="text" id="postnummer" name="postnummer" required>
+            <label for="mail">Mail:</label>
+            <input type="email" id="mail" name="mail" required>
 
-        <button type="button" onclick="handleSubmit()">Næste</button>
-    </form>
+            <label for="telefon">Telefonnummer:</label>
+            <input type="tel" id="telefon" name="telefon" required>
+
+            <label for="postnummer">CICERO Postnummer:</label>
+            <input type="text" id="postnummer" name="postnummer" required>
+
+            <button type="button" onclick="handleSubmit()">Næste</button>
+        </form>
+    </div>
 
     <script>
+        function selectRole(role) {
+            if (role === 'hjaelper') {
+                document.getElementById('hjaelperForm').style.display = 'block';
+            } else {
+                // Handle team role if needed
+            }
+        }
+
         function handleSubmit() {
             var fuldeNavn = document.getElementById('fuldeNavn').value;
             var mail = document.getElementById('mail').value;
             var telefon = document.getElementById('telefon').value;
             var postnummer = document.getElementById('postnummer').value;
 
-            // Håndter formularindsendelse her (f.eks. send data til serveren).
+            var oplysninger = {
+                fuldeNavn: fuldeNavn,
+                mail: mail,
+                telefon: telefon,
+                postnummer: postnummer
+            };
 
-            // Redirect til næste side (hvis nødvendigt).
-            window.location.href = 'næsteside.html';
+            // Send oplysninger til serveren
+            fetch('http://localhost:3000/gem-oplysninger', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(oplysninger),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Server svar:', data);
+                // Redirect til næste side (hvis nødvendigt).
+                window.location.href = 'næsteside.html';
+            });
         }
     </script>
 
 </body>
 </html>
-
