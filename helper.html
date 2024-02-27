@@ -1,100 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CICERO Udlæg - Hjælper</title>
+    <title>Udlægsgodtgørelse</title>
 </head>
 <body>
-
-    <h1>CICERO Udlæg - Hjælper</h1>
-    <p>Vælg din rolle:</p>
-
-    <div>
-        <h2>CICERO Udlæg</h2>
-        <p>Vælg din rolle:</p>
-        <button onclick="selectRole('hjaelper')">Hjælper</button>
-        <button onclick="selectRole('team')">Teamet</button>
-    </div>
-
-    <div id="hjaelperForm" style="display: none;">
-        <h2>CICERO Udlæg - Hjælper</h2>
-        <p>Udfyld dine oplysninger:</p>
-
-        <form id="helperForm" enctype="multipart/form-data">
-            <label for="fuldeNavn">Fulde Navn:</label>
-            <input type="text" id="fuldeNavn" name="fuldeNavn" required>
-
-            <label for="mail">Mail:</label>
-            <input type="email" id="mail" name="mail" required>
-
-            <label for="telefon">Telefonnummer:</label>
-            <input type="tel" id="telefon" name="telefon" required>
-
-            <label for="postnummer">CICERO Postnummer:</label>
-            <input type="text" id="postnummer" name="postnummer" required>
-
-            <div id="udlaegContainer">
-                <div class="udlaeg">
-                    <label for="udlaegTitel">Udlæg Titel:</label>
-                    <input type="text" class="udlaegTitel" name="udlaegTitel[]" required>
-
-                    <label for="udlaegPris">Udlæg Pris:</label>
-                    <input type="number" class="udlaegPris" name="udlaegPris[]" required>
-
-                    <label for="udlaegFil">Upload Udlæg:</label>
-                    <input type="file" class="udlaegFil" name="udlaegFil[]" accept=".pdf, .jpg, .jpeg, .png" required>
-
-                    <button type="button" onclick="removeUdlaeg(this)">Fjern udlæg</button>
-                </div>
-            </div>
-
-            <button type="button" onclick="addUdlaeg()">Tilføj flere udlæg</button>
-            <button type="button" onclick="handleSubmit()">Gem oplysninger</button>
-        </form>
-    </div>
+    <h1>Udlægsgodtgørelse</h1>
+    <button type="button" id="helper-button">Hjælper</button>
+    <button type="button" id="team-button">Teamet</button>
+    <form>
+        <label for="navn">Navn:</label>
+        <input type="text" id="navn" name="navn" required><br><br>
+        
+        <label for="udlaeg">Udlæg:</label>
+        <input type="number" id="udlaeg" name="udlaeg" required><br><br>
+        
+        <label for="kvittering">Kvittering:</label>
+        <input type="file" id="kvittering" name="kvittering" accept="image/*" required><br><br>
+        
+        <button type="submit">Indsend</button>
+    </form>
 
     <script>
-        function selectRole(role) {
-            if (role === 'hjaelper') {
-                document.getElementById('hjaelperForm').style.display = 'block';
-            } else {
-                // Handle team role if needed
-            }
-        }
-
-        function addUdlaeg() {
-            var udlaegContainer = document.getElementById('udlaegContainer');
-            var newUdlaeg = document.createElement('div');
-            newUdlaeg.className = 'udlaeg';
-
-            newUdlaeg.innerHTML = `
-                <label for="udlaegTitel">Udlæg Titel:</label>
-                <input type="text" class="udlaegTitel" name="udlaegTitel[]" required>
-
-                <label for="udlaegPris">Udlæg Pris:</label>
-                <input type="number" class="udlaegPris" name="udlaegPris[]" required>
-
-                <label for="udlaegFil">Upload Udlæg:</label>
-                <input type="file" class="udlaegFil" name="udlaegFil[]" accept=".pdf, .jpg, .jpeg, .png" required>
-
-                <button type="button" onclick="removeUdlaeg(this)">Fjern udlæg</button>
-            `;
-
-            udlaegContainer.appendChild(newUdlaeg);
-        }
-
-        function removeUdlaeg(button) {
-            var udlaegContainer = document.getElementById('udlaegContainer');
-            var udlaegDiv = button.parentElement;
-            udlaegContainer.removeChild(udlaegDiv);
-        }
-
-        function handleSubmit() {
-            // Samme som tidligere
-            // ...
-        }
+        document.getElementById("helper-button").addEventListener("click", function() {
+            window.location.href = "helper-info.html";
+        });
     </script>
-
 </body>
 </html>
