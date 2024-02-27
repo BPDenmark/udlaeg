@@ -3,11 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Udlægshjemmeside</title>
+    <title>CICERO Udlæg</title>
 </head>
 <body>
-    <h1>Velkommen til Udlægshjemmesiden</h1>
-    <p>Indsend dine udlæg nedenfor:</p>
-    <!-- Her kan du tilføje formular og andre elementer -->
+
+    <h1>CICERO Udlæg</h1>
+    <p>Vælg din rolle:</p>
+
+    <p>Er du en del af Teamet eller Hjælper?</p>
+
+    <button onclick="redirectToTeam()">Teamet</button>
+    <button onclick="redirectToHelper()">Hjælper</button>
+
+    <script>
+        function redirectToTeam() {
+            window.location.href = 'team.html';
+        }
+
+        function redirectToHelper() {
+            window.location.href = 'helper.html';
+        }
+    </script>
+
 </body>
 </html>
