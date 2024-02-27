@@ -21,7 +21,7 @@
         <h2>CICERO Udlæg - Hjælper</h2>
         <p>Udfyld dine oplysninger:</p>
 
-        <form id="helperForm">
+        <form id="helperForm" enctype="multipart/form-data">
             <label for="fuldeNavn">Fulde Navn:</label>
             <input type="text" id="fuldeNavn" name="fuldeNavn" required>
 
@@ -34,7 +34,21 @@
             <label for="postnummer">CICERO Postnummer:</label>
             <input type="text" id="postnummer" name="postnummer" required>
 
-            <button type="button" onclick="handleSubmit()">Næste</button>
+            <div id="udlaegContainer">
+                <div class="udlaeg">
+                    <label for="udlaegTitel">Udlæg Titel:</label>
+                    <input type="text" class="udlaegTitel" name="udlaegTitel[]" required>
+
+                    <label for="udlaegPris">Udlæg Pris:</label>
+                    <input type="number" class="udlaegPris" name="udlaegPris[]" required>
+
+                    <label for="udlaegFil">Upload Udlæg:</label>
+                    <input type="file" class="udlaegFil" name="udlaegFil[]" accept=".pdf, .jpg, .jpeg, .png" required>
+                </div>
+            </div>
+
+            <button type="button" onclick="addUdlaeg()">Tilføj flere udlæg</button>
+            <button type="button" onclick="handleSubmit()">Gem oplysninger</button>
         </form>
     </div>
 
@@ -47,26 +61,57 @@
             }
         }
 
+        function addUdlaeg() {
+            var udlaegContainer = document.getElementById('udlaegContainer');
+            var newUdlaeg = document.createElement('div');
+            newUdlaeg.className = 'udlaeg';
+
+            newUdlaeg.innerHTML = `
+                <label for="udlaegTitel">Udlæg Titel:</label>
+                <input type="text" class="udlaegTitel" name="udlaegTitel[]" required>
+
+                <label for="udlaegPris">Udlæg Pris:</label>
+                <input type="number" class="udlaegPris" name="udlaegPris[]" required>
+
+                <label for="udlaegFil">Upload Udlæg:</label>
+                <input type="file" class="udlaegFil" name="udlaegFil[]" accept=".pdf, .jpg, .jpeg, .png" required>
+            `;
+
+            udlaegContainer.appendChild(newUdlaeg);
+        }
+
         function handleSubmit() {
             var fuldeNavn = document.getElementById('fuldeNavn').value;
             var mail = document.getElementById('mail').value;
             var telefon = document.getElementById('telefon').value;
             var postnummer = document.getElementById('postnummer').value;
 
-            var oplysninger = {
-                fuldeNavn: fuldeNavn,
-                mail: mail,
-                telefon: telefon,
-                postnummer: postnummer
-            };
+            var udlaegTitler = document.querySelectorAll('.udlaegTitel');
+            var udlaegPriser = document.querySelectorAll('.udlaegPris');
+            var udlaegFiler = document.querySelectorAll('.udlaegFil');
+
+            var formData = new FormData();
+            formData.append('fuldeNavn', fuldeNavn);
+            formData.append('mail', mail);
+            formData.append('telefon', telefon);
+            formData.append('postnummer', postnummer);
+
+            udlaegTitler.forEach(function (element, index) {
+                formData.append('udlaegTitel[]', element.value);
+            });
+
+            udlaegPriser.forEach(function (element, index) {
+                formData.append('udlaegPris[]', element.value);
+            });
+
+            udlaegFiler.forEach(function (element, index) {
+                formData.append('udlaegFil[]', element.files[0]);
+            });
 
             // Send oplysninger til serveren
             fetch('http://localhost:3000/gem-oplysninger', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(oplysninger),
+                body: formData,
             })
             .then(response => response.json())
             .then(data => {
